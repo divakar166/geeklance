@@ -40,6 +40,20 @@ def userregister(request):
     else:
       return JsonResponse({'data':'user already exist!'})
 
+
+@csrf_exempt
+def lancerlogin(request):
+  if request.method == 'POST':
+    data = json.loads(request.body)
+    username = data.get('username')
+    password = data.get('password')
+    profile_obj = lancer.objects.filter(email=username)
+    if profile_obj.exists():
+      return JsonResponse({'data':'kr rhe h'})
+    else:
+      return JsonResponse({'data':'User doesnt exist!'})
+  return JsonResponse({'res':'kuch ni hua'})
+
 @csrf_exempt
 def lancerregister(request):
   if request.method == 'POST':

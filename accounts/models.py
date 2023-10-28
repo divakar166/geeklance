@@ -23,7 +23,7 @@ class UserProfile(BaseModel):
 
 
 class lancer(BaseModel):
-  firt_name = models.CharField(max_length=100)
+  first_name = models.CharField(max_length=100)
   last_name = models.CharField(max_length=100)
   password = models.CharField(max_length=100)
   company = models.CharField(max_length=200,blank=True,null=True)
