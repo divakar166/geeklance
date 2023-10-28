@@ -39,3 +39,20 @@ def userregister(request):
       return JsonResponse({'data':user})
     else:
       return JsonResponse({'data':'user already exist!'})
+
+@csrf_exempt
+def lancerregister(request):
+  if request.method == 'POST':
+    data = json.loads(request.body)
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    email = data.get('email')
+    password = data.get('password')
+    hashed = make_password(password)
+    profile_obj = lancer.objects.filter(email=email)
+    if not profile_obj.exists():
+      user = lancer.objects.create(firt_name=first_name,last_name=last_name,email=email,password=hashed)
+      user.save()
+      return JsonResponse({'data':user})
+    else:
+      return JsonResponse({'data':'user already exist!'})
