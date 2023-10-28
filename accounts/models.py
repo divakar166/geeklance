@@ -4,6 +4,7 @@ from base.models import BaseModel
 class UserProfile(BaseModel):
   first_name = models.CharField(max_length=100)
   last_name = models.CharField(max_length=100)
+  password = models.CharField(max_length=100)
   college = models.CharField(max_length=200)
   role = models.CharField(max_length=100,blank=True,null=True)
   mobile = models.CharField(max_length=20,blank=True,null=True)
@@ -24,6 +25,7 @@ class UserProfile(BaseModel):
 class lancer(BaseModel):
   firt_name = models.CharField(max_length=100)
   last_name = models.CharField(max_length=100)
+  password = models.CharField(max_length=100)
   company = models.CharField(max_length=200,blank=True,null=True)
   role = models.CharField(max_length=100,blank=True,null=True)
   skills = models.CharField(max_length=100,blank=True,null=True)
