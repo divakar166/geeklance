@@ -19,18 +19,23 @@ def userlogin(request):
     print(username,password)
     profile_obj = UserProfile.objects.filter(email=username)
     if not profile_obj.exists():
-      return JsonResponse({'res':'Account not found!'})
+      data = {
+        'message': "Account doesn't exist!"
+      }
+      return JsonResponse(data)
     if profile_obj[0]:
-      print(profile_obj[0])
-      return JsonResponse({'res':'kuch h'})
-    return JsonResponse({'data':'data'})
+      data = {
+        'message':"Logged In!"
+      }
+      return JsonResponse(data)
+    
 
 @csrf_exempt
 def userregister(request):
   if request.method == 'POST':
     data = json.loads(request.body)
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
+    first_name = data.get('firstName')
+    last_name = data.get('lastName')
     email = data.get('email')
     password = data.get('password')
     hashed = make_password(password)
@@ -38,9 +43,19 @@ def userregister(request):
     if not profile_obj.exists():
       user = UserProfile.objects.create(first_name=first_name,last_name=last_name,email=email,password=hashed)
       user.save()
-      return JsonResponse({'data':user})
+      data = {
+        'message': "success",
+        "userID":user.uid,
+        "first_name":user.first_name,
+        "last_name":user.last_name,
+        "email":user.email
+      }
+      return JsonResponse(data)
     else:
-      return JsonResponse({'data':'user already exist!'})
+      data = {
+        'message': "Account already exist!"
+      }
+      return JsonResponse(data)
 
 
 @csrf_exempt
@@ -50,25 +65,40 @@ def lancerlogin(request):
     username = data.get('username')
     password = data.get('password')
     profile_obj = lancer.objects.filter(email=username)
-    if profile_obj.exists():
-      return JsonResponse({'data':'kr rhe h'})
-    else:
-      return JsonResponse({'data':'User doesnt exist!'})
-  return JsonResponse({'res':'kuch ni hua'})
+    if not profile_obj.exists():
+      data = {
+        'message': "Account doesn't exist!"
+      }
+      return JsonResponse(data)
+    if profile_obj[0]:
+      data = {
+        'message':"Logged In!"
+      }
+      return JsonResponse(data)
 
 @csrf_exempt
 def lancerregister(request):
   if request.method == 'POST':
     data = json.loads(request.body)
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
+    first_name = data.get('firstName')
+    last_name = data.get('lastName')
     email = data.get('email')
     password = data.get('password')
     hashed = make_password(password)
     profile_obj = lancer.objects.filter(email=email)
     if not profile_obj.exists():
-      user = lancer.objects.create(firt_name=first_name,last_name=last_name,email=email,password=hashed)
+      user = lancer.objects.create(first_name=first_name,last_name=last_name,email=email,password=hashed)
       user.save()
-      return JsonResponse({'data':user})
+      data = {
+        'message': "Registered Successfully!",
+        "userID":user.uid,
+        "first_name":user.first_name,
+        "last_name":user.last_name,
+        "email":user.email
+      }
+      return JsonResponse(data)
     else:
-      return JsonResponse({'data':'user already exist!'})
+      data = {
+        'message': "Account already exist!"
+      }
+      return JsonResponse(data)
