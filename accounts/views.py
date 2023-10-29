@@ -25,7 +25,11 @@ def userlogin(request):
       return JsonResponse(data)
     if profile_obj[0]:
       data = {
-        'message':"Logged In!"
+        'message': "success",
+        "userID":profile_obj[0].uid,
+        "first_name":profile_obj[0].first_name,
+        "last_name":profile_obj[0].last_name,
+        "email":profile_obj[0].email
       }
       return JsonResponse(data)
     
@@ -72,7 +76,11 @@ def lancerlogin(request):
       return JsonResponse(data)
     if profile_obj[0]:
       data = {
-        'message':"Logged In!"
+        'message': "success",
+        "userID":profile_obj[0].uid,
+        "first_name":profile_obj[0].first_name,
+        "last_name":profile_obj[0].last_name,
+        "email":profile_obj[0].email
       }
       return JsonResponse(data)
 
