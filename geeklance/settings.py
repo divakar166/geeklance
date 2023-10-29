@@ -76,14 +76,21 @@ WSGI_APPLICATION = 'geeklance.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'geeklance',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': os.environ.get('MONGO_URI')
+#         }  
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'geeklance',
-        'ENFORCE_SCHEMA': False,
-        'CLIENT': {
-            'host': os.environ.get('MONGO_URI')
-        }  
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

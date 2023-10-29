@@ -7,7 +7,7 @@ from django.contrib.auth.hashers import make_password
 # Create your views here.
 def users(request):
   data = UserProfile.objects.all()
-  item_list = [{'name':item.first_name,'mobile':item.mobile} for item in data]
+  item_list = [{'name':item.first_name,'email':item.email} for item in data]
   return JsonResponse({'items':item_list})
 
 @csrf_exempt
@@ -16,12 +16,14 @@ def userlogin(request):
     data = json.loads(request.body)
     username = data.get('username')
     password = data.get('password')
+    print(username,password)
     profile_obj = UserProfile.objects.filter(email=username)
-    if profile_obj.exists():
-      return JsonResponse({'data':'kr rhe h'})
-    else:
-      return JsonResponse({'data':'User doesnt exist!'})
-  return JsonResponse({'res':'kuch ni hua'})
+    if not profile_obj.exists():
+      return JsonResponse({'res':'Account not found!'})
+    if profile_obj[0]:
+      print(profile_obj[0])
+      return JsonResponse({'res':'kuch h'})
+    return JsonResponse({'data':'data'})
 
 @csrf_exempt
 def userregister(request):
